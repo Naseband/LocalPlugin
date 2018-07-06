@@ -25,3 +25,7 @@ Note: WINDOWS only!
 
 	OnLocalKeyStateChange(key, newstate)
 		Gets called whenever a keystate has changed (newstate will be 0 or 1).
+
+# Keys:
+
+	All compatible keys and their definitions can be found in the include file.
