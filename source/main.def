@@ -1,0 +1,8 @@
+LIBRARY "LocalPlugin"
+EXPORTS
+	Supports
+	Load
+	Unload
+	AmxLoad
+	AmxUnload
+	ProcessTick
