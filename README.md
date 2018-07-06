@@ -9,7 +9,7 @@ Note: WINDOWS only!
 		Checks if a key ID is currently pressed.
 
 	IsSAMPFocused()
-		Checks if SAMP is the foreground application.
+		Checks if the SAMP client is the foreground application (by window name).
 
 	GetVKName(key, const name[], maxlen = sizeof name)
 		Gets the complete name of a key.
