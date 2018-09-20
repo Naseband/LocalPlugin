@@ -74,17 +74,17 @@ PLUGIN_EXPORT void PLUGIN_CALL Unload()
 		logprintf("** LocalKeys Plugin by NaS (c) 2016\n   UNLOADED!");
 }
 
-cell AMX_NATIVE_CALL IsLocalKeyDown(AMX *amx, cell *params)
+cell AMX_NATIVE_CALL n_IsLocalKeyDown(AMX *amx, cell *params)
 {
 	return (GetAsyncKeyState(params[1]) & (1 << 16));
 }
 
-cell AMX_NATIVE_CALL IsSAMPFocused(AMX *amx, cell *params)
+cell AMX_NATIVE_CALL n_IsSAMPFocused(AMX *amx, cell *params)
 {
 	return (focused ? 1 : 0);
 }
 
-cell AMX_NATIVE_CALL GetVKName(AMX* amx, cell* params)
+cell AMX_NATIVE_CALL n_GetVKName(AMX* amx, cell* params)
 {
 	cell* addr = NULL;
 	amx_GetAddr(amx, params[2], &addr);
@@ -93,7 +93,7 @@ cell AMX_NATIVE_CALL GetVKName(AMX* amx, cell* params)
 	return 1;
 }
 
-cell AMX_NATIVE_CALL ToggleKey(AMX *amx, cell *params)
+cell AMX_NATIVE_CALL n_ToggleKey(AMX *amx, cell *params)
 {
 	if(params[1] < 0 || params[1] >= 256) return 0;
 
@@ -112,20 +112,51 @@ cell AMX_NATIVE_CALL ToggleKey(AMX *amx, cell *params)
 	return 1;
 }
 
-cell AMX_NATIVE_CALL IsKeyToggled(AMX *amx, cell *params)
+cell AMX_NATIVE_CALL n_IsKeyToggled(AMX *amx, cell *params)
 {
 	if(params[1] < 0 || params[1] >= 256) return 0;
 
 	return (keytoggled[params[1]] ? 1 : 0);
 }
 
+cell AMX_NATIVE_CALL n_GetCursorPos(AMX *amx, cell *params)
+{
+	POINT position;
+
+	if(!GetCursorPos(&position)) return 0;
+
+	cell* address[2] = { NULL, NULL };
+
+	amx_GetAddr(amx, params[1], &address[0]);
+	amx_GetAddr(amx, params[2], &address[1]);
+
+	*address[0] = position.x;
+	*address[1] = position.y;
+
+	return 1;
+}
+
+cell AMX_NATIVE_CALL n_SetCursorPos(AMX *amx, cell *params)
+{
+	POINT position;
+
+	position.x = params[1];
+	position.y = params[2];
+
+	if(!SetCursorPos(position.x, position.y)) return 0;
+
+	return 1;
+}
+
 AMX_NATIVE_INFO PluginNatives[] =
 {
-	{"IsLocalKeyDown", IsLocalKeyDown},
-	{"GetVKName", GetVKName},
-	{"IsSAMPFocused", IsSAMPFocused},
-	{"ToggleKey", ToggleKey},
-	{"IsKeyToggled", IsKeyToggled},
+	{"IsLocalKeyDown", n_IsLocalKeyDown},
+	{"GetVKName", n_GetVKName},
+	{"IsSAMPFocused", n_IsSAMPFocused},
+	{"ToggleKey", n_ToggleKey},
+	{"IsKeyToggled", n_IsKeyToggled},
+	{"GetCursorPos", n_GetCursorPos},
+	{"SetCursorPos", n_SetCursorPos},
 	{0, 0}
 };
 
