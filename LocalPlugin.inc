@@ -10,7 +10,9 @@
 *
 *	----Natives:
 *
-*			IsLocalKeyDown(key)
+*		Keys:
+*
+*			IsLocalKeyPressed(key)
 *				Checks if a key ID is currently pressed.
 *
 *			IsSAMPFocused()
@@ -24,7 +26,15 @@
 *				All keys are off by default!
 *
 *			IsKeyToggled(key)
-*				Checks if a key is toggled (see above).
+*				Checks if a key is toggled.
+*
+*		Cursor:
+*
+*			GetCursorPos(&x, &y)
+*				Retrieves the cursor position. Returns 1 on success.
+*
+*			SetCursorPos(&x, &y)
+*				Sets the cursor position. Returns 1 on success.
 *
 *	----Callbacks:
 *
@@ -33,13 +43,18 @@
 *
 *////
 
- // Natives
+ // Natives (Keys, including Mouse Keys)
 
 native IsSAMPFocused();
 native IsLocalKeyDown(key);
 native GetVKName(key, const name[], maxlen = sizeof name);
 native ToggleKey(key, toggle = 1);
 native IsKeyToggled(key);
+
+ // Natives (Cursor)
+
+native GetCursorPos(&x, &y);
+native SetCursorPos(x, y);
 
  // Callbacks
 
