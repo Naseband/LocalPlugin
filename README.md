@@ -5,26 +5,34 @@ Note: WINDOWS only!
 
 # Natives (General)
 
+```
 native IsSAMPFocused();
 
 native GetSAMPWindowPos(&x, &y);
 native GetSAMPWindowSize(&size_x, &size_y);
+```
 
 # Natives (Keys, including Mouse Keys)
 
+```
 native IsLocalKeyDown(key);
 native GetVKName(key, const name[], maxlen = sizeof name);
 native ToggleKey(key, toggle = 1);
 native IsKeyToggled(key);
+```
 
 # Natives (Cursor)
 
+```
 native GetCursorPos(&x, &y);
 native SetCursorPos(x, y);
+```
 
 # Natives (Clickable Tiles)
-	Note: These aren't visible. Just virtual zones which trigger OnClickTile when clicked. Useful for non-rectangle UI elements etc.
+Note: These aren't visible. Just virtual zones which trigger OnClickTile when clicked.
+Useful for non-rectangle UI elements etc.
 
+```
 native AllocTiles();
 native DeallocTiles();
 
@@ -51,19 +59,24 @@ native SetTilePrivate(id, bool:is_private); // Does not change the parent AMX, o
 native IsTilePrivate(id);
 native IsMyTile(id);
 native UpdateTileAMX(id); // Updates the AMX instance to the one which calls it.
+```
 
 # Callbacks
 
+```
 forward OnLocalKeyStateChange(key, newstate);
 forward OnClickTile(id, x, y, key);
+```
 
 # Defines
 
+```
 #define INVALID_TILE_ID					-1
 #define INVALID_TILE_TYPE				-1
 
 #define TILE_TYPE_RECT					0
 #define TILE_TYPE_ELLIPSE				1
+```
 
 # Keys:
 
