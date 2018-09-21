@@ -41,9 +41,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>X:\samp server\samp server\Plugins\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>X:\samp server\samp server\Plugins\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -76,19 +78,27 @@
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>main.def</ModuleDefinitionFile>
       <AdditionalDependencies>psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="LocalPlugin.inc" />
     <None Include="main.def" />
+    <None Include="X:\samp server\pawno\include\LocalPlugin.inc" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\SDK\amxplugin.cpp" />
+    <ClCompile Include="cursor.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="keys.cpp" />
+    <ClCompile Include="tiles.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\SDK\plugin.h" />
     <ClInclude Include="..\..\SDK\plugincommon.h" />
+    <ClInclude Include="cursor.h" />
+    <ClInclude Include="keys.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="tiles.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
