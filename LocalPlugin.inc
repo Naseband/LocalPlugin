@@ -5,62 +5,73 @@
 
 /****
 *
-*	LocalKeys Plugin by NaS (c) 2016
+*	LocalKeys Plugin by NaS (c) 2016-2018
 *	IMPORTANT: Only works for the client that runs the samp-server.exe (Windows)!
-*
-*	----Natives:
-*
-*		Keys:
-*
-*			IsLocalKeyPressed(key)
-*				Checks if a key ID is currently pressed.
-*
-*			IsSAMPFocused()
-*				Checks if SAMP is the foreground application.
-*
-*			GetVKName(key, const name[], maxlen = sizeof name)
-*				Gets the complete name of a key.
-*
-*			ToggleKey(key, toggle = 1)
-*				Toggles the given key for OnLocalKeyStateChange only. 
-*				All keys are off by default!
-*
-*			IsKeyToggled(key)
-*				Checks if a key is toggled.
-*
-*		Cursor:
-*
-*			GetCursorPos(&x, &y)
-*				Retrieves the cursor position. Returns 1 on success.
-*
-*			SetCursorPos(&x, &y)
-*				Sets the cursor position. Returns 1 on success.
-*
-*	----Callbacks:
-*
-*			OnLocalKeyStateChange(key, newstate)
-*				Gets called whenever a keystate has changed (newstate will be 0 or 1).
 *
 *////
 
- // Natives (Keys, including Mouse Keys)
+// Natives (General)
 
 native IsSAMPFocused();
+
+native GetSAMPWindowPos(&x, &y);
+native GetSAMPWindowSize(&size_x, &size_y);
+
+// Natives (Keys, including Mouse Keys)
+
 native IsLocalKeyDown(key);
 native GetVKName(key, const name[], maxlen = sizeof name);
 native ToggleKey(key, toggle = 1);
 native IsKeyToggled(key);
 
- // Natives (Cursor)
+// Natives (Cursor)
 
 native GetCursorPos(&x, &y);
 native SetCursorPos(x, y);
 
- // Callbacks
+// Natives (Clickable Tiles) Note: These aren't visible. Just virtual zones which trigger OnClickTile when clicked. Useful for non-rectangle UI elements etc.
+
+native AllocTiles();
+native DeallocTiles();
+
+native SetMaxTiles(max_tiles);
+native GetMaxTiles();
+
+native CreateTile(x, y, type, size_x, size_y, const keys[], extra = 0, bool:prvate = false, keys_num = sizeof keys);
+native DestroyTile(id);
+native IsValidTile(id);
+
+native SetTileType(id, type);
+native GetTileType(id); // ret
+
+native SetTilePos(id, x, y);
+native GetTilePos(id, &x, &y);
+
+native SetTileSize(id, size_x, size_y);
+native GetTileSize(id, &size_x, &size_y);
+
+native SetTileExtra(id, extra);
+native GetTileExtra(id); // ret
+
+native SetTilePrivate(id, bool:is_private); // Does not change the parent AMX, only toggles it.
+native IsTilePrivate(id);
+native IsMyTile(id);
+native UpdateTileAMX(id); // Updates the AMX instance to the one which calls it.
+
+// Callbacks
 
 forward OnLocalKeyStateChange(key, newstate);
+forward OnClickTile(id, x, y, key);
 
- // Defines - From WinUser.h, also added A-Z, 0-9
+// Defines
+
+#define INVALID_TILE_ID					-1
+#define INVALID_TILE_TYPE				-1
+
+#define TILE_TYPE_RECT					0
+#define TILE_TYPE_ELLIPSE				1
+
+// Key Defines - From WinUser.h, also added A-Z, 0-9
 
 #define VK_LBUTTON				0x01
 #define VK_RBUTTON				0x02
